@@ -1,6 +1,6 @@
 <template>
     <div class="_div" >
-        <h2>管理员登录</h2>
+        <h1>管理员登录</h1>
         <el-form ref="form" :model="form"  class="form-login">
             <el-form-item label="">
                 <el-input v-model="form.name" auto-complete="off"  placeholder="用户名"></el-input>
@@ -9,7 +9,7 @@
                 <el-input type="password" v-model="form.pwd" auto-complete="off"  placeholder="密码" show-password="false"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit(form)">登录</el-button>
+                <el-button type="primary" @click="onSubmit(form)" class="_sub"><span class="_sub_span">登录</span></el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -48,10 +48,15 @@
 
 <style scoped>
     ._div{
-        margin: 300px;
+
     }
     .form-login{
         width: 300px;
-        /*margin-left: 35%;*/
+    }
+    ._sub{
+        width: 100%;
+    }
+    ._sub_span{
+        font-size: 20px;
     }
 </style>

@@ -17,9 +17,8 @@ export default {
 
 <style>
 #app {
-  padding:0;
-  margin: 0;
-
+  padding:0 auto;
+  margin: 0 auto;
   /*font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
