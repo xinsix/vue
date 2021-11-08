@@ -1,5 +1,5 @@
 <template>
-    <div class="_div">
+    <div class="_div" >
         <h2>管理员登录</h2>
         <el-form ref="form" :model="form"  class="form-login">
             <el-form-item label="">
