@@ -27,7 +27,14 @@
             }
         },
         methods: {
-            onSubmit() {
+            onSubmit(form) {
+
+                if (form.name == 'admin' && form.pwd == "admin"){
+                    location.href="https://xinsix.lrzanlz.top/";
+                    return true;
+                }
+
+
                 //console.log('submit!');
             }
         }
