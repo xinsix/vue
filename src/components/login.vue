@@ -63,6 +63,30 @@
 </script>
 
 <style scoped>
+    @media (min-width: 374px){
+        ._div{
+
+            padding-top: 25%;
+        }
+
+    }
+    @media (min-width: 768px){
+        ._div{
+            padding: 20%;
+        }
+    }
+    @media (min-width: 992px){
+        ._div{
+            padding: 15%;
+        }
+    }
+    @media (min-width: 1200px){
+        ._div{
+            padding: 10%;
+        }
+    }
+
+
     ._div{
 
     }
