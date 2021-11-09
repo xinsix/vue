@@ -30,15 +30,31 @@
             onSubmit(form) {
                 if (form.name == 'xinsix' && form.pwd == "lrq"){
                     location.href="https://xinsix.lrzanlz.top/";
+                    this.$message({
+                        type: 'success',
+                        message: `登录成功！`
+                    });
                     return true;
                 }else if (form.name == 'lrz' && form.pwd == "lz"){
                     location.href="https://www.lrzanlz.top/";
+                    this.$message({
+                        type: 'success',
+                        message: `登录成功！`
+                    });
                     return true;
                 }else if (form.name == 'bdqn' && form.pwd == "bdqn"){
                     location.href="https://www.bdqn90.top/";
+                    this.$message({
+                        type: 'success',
+                        message: `登录成功！`
+                    });
                     return true;
                 }else{
-                    alert("登录失败！")
+                    this.$message({
+                        type: 'error',
+                        message: `登录失败：账号或密码错误`
+                    });
+                    return false;
                 }
                 //console.log('submit!');
             }
