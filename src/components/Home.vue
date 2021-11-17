@@ -17,6 +17,7 @@
                     <el-row>
                         <el-col :span="24" >
                             <el-menu router
+                                     :default-active="$route.path"
                                      class="el-menu-vertical-demo"
                                      @open="handleOpen"
                                      @close="handleClose">
