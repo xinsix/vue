@@ -17,11 +17,11 @@
                     <el-row>
                         <el-col :span="24" >
                             <el-menu router
+                                     unique-opened
                                      :default-active="$route.path"
                                      class="el-menu-vertical-demo"
                                      @open="handleOpen"
                                      @close="handleClose">
-
                                 <el-menu-item index="/home/index">
                                     <i class="el-icon-menu"></i>
                                     <span slot="title">系统首页</span>
