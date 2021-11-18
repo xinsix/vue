@@ -12,16 +12,25 @@
                 </el-dropdown>
                 <span>王小虎</span>
             </el-header>
-            <el-container >
-                <el-aside  style="width: 260px;">
+            <el-container>
+                <el-aside style="width: auto">
                     <el-row>
-                        <el-col :span="24" >
+                        <el-col :span="24">
+                            <el-tooltip :content="'导航栏开关'">
+                                <el-switch
+                                        v-model="isCollapse"
+                                        active-color="#13ce66"
+                                        inactive-color="#ff4949">
+                                </el-switch>
+                            </el-tooltip>
+
                             <el-menu router
                                      unique-opened
                                      :default-active="$route.path"
                                      class="el-menu-vertical-demo"
                                      @open="handleOpen"
-                                     @close="handleClose">
+                                     @close="handleClose"
+                                     :collapse="!isCollapse">
                                 <el-menu-item index="/home/index">
                                     <i class="el-icon-menu"></i>
                                     <span slot="title">系统首页</span>
@@ -53,13 +62,15 @@
                         </el-col>
                     </el-row>
                 </el-aside>
-                <el-container style="height: 900px; border: 1px solid #eee">
-                    <el-main>
+                <el-container style=" border: 1px solid #eee">
+                    <el-main style="height: 85vh;">
                         <router-view/>
                     </el-main>
                     <el-footer>
                         <div>
-                            备案号
+                            <span>
+                                <el-link :underline="false" target="_blank"  href="https://github.com/xinsix/vue">&copy;github地址</el-link>
+                            </span>
                         </div>
                     </el-footer>
                 </el-container>
@@ -78,7 +89,8 @@
                 address: '上海市普陀区金沙江路 1518 弄'
             };
             return {
-                tableData: Array(20).fill(item)
+                tableData: Array(20).fill(item),
+                isCollapse: true
             }
         }
     }
