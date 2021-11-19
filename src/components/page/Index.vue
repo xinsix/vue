@@ -9,27 +9,27 @@
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="小组积分" name="groupIntegral">
                 <!--小组积分-->
-                <el-table :data="tableData">
-                    <el-table-column prop="date" label="序号">
+                <el-table :data="tableDataGroupIntegral" height="590">
+                    <el-table-column prop="groupId" label="序号">
                     </el-table-column>
-                    <el-table-column prop="name" label="小组名称">
+                    <el-table-column prop="groupName" label="小组名称">
                     </el-table-column>
-                    <el-table-column prop="date" label="小组积分">
+                    <el-table-column prop="groupIntegral" label="小组积分">
                     </el-table-column>
-                    <el-table-column prop="name" label="小组总和积分">
+                    <el-table-column prop="group_sum" label="小组总和积分">
                     </el-table-column>
                 </el-table>
             </el-tab-pane>
             <el-tab-pane label="个人积分" name="userIntegral">
                 <!--个人积分-->
-                <el-table :data="tableData" width="100%">
-                    <el-table-column prop="date" label="序号">
+                <el-table :data="tableDataUserIntegral" width="100%" height="590">
+                    <el-table-column prop="userId" label="序号">
                     </el-table-column>
-                    <el-table-column prop="name" label="姓名">
+                    <el-table-column prop="userName" label="姓名">
                     </el-table-column>
-                    <el-table-column prop="date" label="小组名称">
+                    <el-table-column prop="group_name" label="小组名称">
                     </el-table-column>
-                    <el-table-column prop="name" label="个人积分">
+                    <el-table-column prop="userIntegral" label="个人积分">
                     </el-table-column>
                 </el-table>
             </el-tab-pane>
@@ -43,13 +43,37 @@
     export default {
         data() {
             return {
-                activeName: 'groupIntegral'
+                activeName: 'groupIntegral',
+                tableDataGroupIntegral: [],
+                tableDataUserIntegral: [],
             };
         },
         methods: {
             handleClick(tab, event) {
                 console.log(tab, event);
-            }
+            },
+            init() {
+                var self = this
+                this.$axios.get('/client/studentgroup/queryStudentGroupSum')
+                    .then(function(res) {
+                        console.log(res.data);
+                        self.tableDataGroupIntegral = res.data
+                    })
+                    .catch(function(err) {
+                        console.log(err)
+                    })
+                this.$axios.get('/client/user/queryUserIntegral')
+                    .then(function(res) {
+                        console.log(res.data);
+                        self.tableDataUserIntegral = res.data
+                    })
+                    .catch(function(err) {
+                        console.log(err)
+                    })
+            },
+        },
+        mounted: function() {
+            this.init()
         }
     }
 </script>
