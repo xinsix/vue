@@ -9,17 +9,17 @@
         <el-divider></el-divider>
         <h3>个人积分明细列表</h3>
         <el-table :data="tableData">
-            <el-table-column prop="date" label="序列号">
+            <el-table-column prop="integralUserId" label="序列号">
             </el-table-column>
-            <el-table-column prop="name" label="学生姓名">
+            <el-table-column prop="userName" label="学生姓名">
             </el-table-column>
-            <el-table-column prop="address" label="学生明细积分">
+            <el-table-column prop="integralUserChange" label="学生明细积分">
             </el-table-column>
-            <el-table-column prop="date" label="加分原因">
+            <el-table-column prop="specificName" label="加分原因"  width="600">
             </el-table-column>
-            <el-table-column prop="name" label="添加时间">
+            <el-table-column prop="integralUserTime" label="添加时间"  width="300">
             </el-table-column>
-            <el-table-column prop="address" label="添加管理员">
+            <el-table-column prop="adminName" label="添加管理员">
             </el-table-column>
             <el-table-column prop="address" label="操作">
             </el-table-column>
@@ -29,6 +29,31 @@
 
 <script>
     export default {
+        data() {
+            return {
+                tableData: [],
+                tableDataUserIntegral: [],
+            };
+        },
+        methods: {
+            handleClick(tab, event) {
+                console.log(tab, event);
+            },
+            init() {
+                var self = this
+                this.$axios.get('/client/integralUser/search')
+                    .then(function(res) {
+                        console.log(res.data);
+                        self.tableData = res.data.list
+                    })
+                    .catch(function(err) {
+                        console.log(err)
+                    })
+            },
+        },
+        mounted: function() {
+            this.init()
+        }
     }
 </script>
 
