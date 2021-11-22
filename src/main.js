@@ -6,7 +6,7 @@ import router from './router'
 import axios from '../node_modules/axios'
 // 设置后端请求地址
 //axios.defaults.baseURL='http://localhost:8089';
-axios.defaults.baseURL='http://121.89.239.151:8089';
+axios.defaults.baseURL='https://hd.jfgl.xinsix.top/';
 
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
