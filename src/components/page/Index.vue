@@ -10,7 +10,7 @@
             <el-tab-pane label="小组积分" name="groupIntegral">
                 <!--小组积分-->
                 <el-table :data="tableDataGroupIntegral" height="590">
-                    <el-table-column prop="groupId" label="序号">
+                    <el-table-column type="index" label="序号">
                     </el-table-column>
                     <el-table-column prop="groupName" label="小组名称">
                     </el-table-column>
@@ -23,7 +23,7 @@
             <el-tab-pane label="个人积分" name="userIntegral">
                 <!--个人积分-->
                 <el-table :data="tableDataUserIntegral" width="100%" height="590">
-                    <el-table-column prop="userId" label="序号">
+                    <el-table-column type="index" label="序号" width="auto">
                     </el-table-column>
                     <el-table-column prop="userName" label="姓名">
                     </el-table-column>
