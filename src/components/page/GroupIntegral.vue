@@ -9,7 +9,7 @@
         <el-divider></el-divider>
         <h3>小组积分明细列表</h3>
         <el-table :data="tableDataGroupIntegral">
-            <el-table-column prop="integralGroupId" label="序列号">
+            <el-table-column type="index" label="序号">
             </el-table-column>
             <el-table-column prop="groupName" label="小组名称">
             </el-table-column>
@@ -18,6 +18,9 @@
             <el-table-column prop="specificName" label="加分原因" width="600">
             </el-table-column>
             <el-table-column prop="integralGroupTime" label="添加时间" width="300">
+                <template slot-scope="scope">
+                    <span>{{ scope.row.integralGroupTime|timeFilter }}</span>
+                </template>
             </el-table-column>
             <el-table-column prop="adminName" label="添加管理员">
             </el-table-column>
@@ -28,6 +31,7 @@
 </template>
 
 <script>
+    import "@/utils/filters";//引入时间过滤器
     export default {
         data() {
             return {

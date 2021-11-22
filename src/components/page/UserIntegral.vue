@@ -8,8 +8,8 @@
         </el-row>
         <el-divider></el-divider>
         <h3>个人积分明细列表</h3>
-        <el-table :data="tableData">
-            <el-table-column prop="integralUserId" label="序列号">
+        <el-table :data="tableDataUserIntegral" >
+            <el-table-column type="index" label="序号" width="auto">
             </el-table-column>
             <el-table-column prop="userName" label="学生姓名">
             </el-table-column>
@@ -18,6 +18,9 @@
             <el-table-column prop="specificName" label="加分原因"  width="600">
             </el-table-column>
             <el-table-column prop="integralUserTime" label="添加时间"  width="300">
+                <template slot-scope="scope">
+                    <span>{{ scope.row.integralUserTime|timeFilter }}</span>
+                </template>
             </el-table-column>
             <el-table-column prop="adminName" label="添加管理员">
             </el-table-column>
@@ -28,6 +31,7 @@
 </template>
 
 <script>
+    import "@/utils/filters";//引入时间过滤器
     export default {
         data() {
             return {
@@ -44,7 +48,7 @@
                 this.$axios.get('/client/integralUser/search')
                     .then(function(res) {
                         console.log(res.data);
-                        self.tableData = res.data.list
+                        self.tableDataUserIntegral = res.data.list
                     })
                     .catch(function(err) {
                         console.log(err)
