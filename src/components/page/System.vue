@@ -1,48 +1,48 @@
 <template>
     <div>
-        <p class="" >
+        <p class="">
             <span class="span_font">类别：</span>
             <el-dropdown>
-                <el-select v-model="value" clearable placeholder="请选择">
+                <el-select v-model="type" clearable placeholder="请选择" @change="changeType">
                     <el-option
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                            v-for="item in dataType"
+                            :key="item.typeId"
+                            :label="item.typeName"
+                            :value="item.typeId">
                     </el-option>
                 </el-select>
             </el-dropdown>
-            <span class="span_font">详细分类：</span>
-            <el-dropdown>
-                <el-select v-model="value" clearable placeholder="请选择">
+            <span class="span_font" v-if="type!=''">详细分类：</span>
+            <el-dropdown v-if="type!=''">
+                <el-select v-model="sort" clearable placeholder="请选择" @change="changeSort">
                     <el-option
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                            v-for="item in dataSort"
+                            :key="item.sortId"
+                            :label="item.sortName"
+                            :value="item.sortId">
                     </el-option>
                 </el-select>
             </el-dropdown>
-                <span class="span_font">具体加分项：</span>
-            <el-dropdown>
-                <el-select v-model="value" clearable placeholder="请选择">
+            <span class="span_font" v-if="type!=''&&sort!=''">具体加分项：</span>
+            <el-dropdown v-if="type!=''&&sort!=''">
+                <el-select v-model="specificSort" clearable placeholder="请选择" @change="changeSpecificScore">
                     <el-option
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                            v-for="item in dataSpecificScore"
+                            :key="item.specificId"
+                            :label="item.specificName"
+                            :value="item.specificId">
                     </el-option>
                 </el-select>
             </el-dropdown>
         </p>
-        <el-table :data="tableData">
-            <el-table-column prop="date" label="类别">
+        <el-table :data="tableDataSystem" height="717">
+            <el-table-column prop="typeName" label="类别">
             </el-table-column>
-            <el-table-column prop="name" label="详细分类">
+            <el-table-column prop="sortName" label="详细分类">
             </el-table-column>
-            <el-table-column prop="address" label="具体加分项">
+            <el-table-column prop="specificName" label="具体加分项">
             </el-table-column>
-            <el-table-column prop="address" label="具体分值">
+            <el-table-column prop="specificFraction" label="具体分值">
             </el-table-column>
         </el-table>
     </div>
@@ -52,24 +52,102 @@
     export default {
         data() {
             return {
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
+                dataType: [{
+                    typeId: '',
+                    typeName: ''
                 }],
-                value: ''
+                dataSort: [{
+                    sortId: '',
+                    sortName: ''
+                }],
+                dataSpecificScore: [{
+                    specificId: '',
+                    specificName: ''
+                }],
+                type: '',
+                sort:'',
+                specificSort:'',
+                tableDataSystem:[]
             }
+        },
+        methods: {
+            handleClick(tab, event) {
+                console.log(tab, event);
+            },
+            init() {
+                var self = this
+                this.$axios.post('/client/specificscore/search',{})
+                    .then(function(res) {
+                        console.log(res.data.list);
+                        self.tableDataSystem = res.data.list
+                    })
+                    .catch(function(err) {
+                        console.log(err)
+                    })
+                this.$axios.get('/client/type/search')
+                    .then(function(res) {
+                        console.log(res.data.list);
+                        self.dataType = res.data.list
+                    })
+                    .catch(function(err) {
+                        console.log(err)
+                    })
+                this.$axios.post('/client/sort/search',{})
+                    .then(function(res) {
+                        console.log(res.data.list);
+                        self.dataSort = res.data.list
+                    })
+                    .catch(function(err) {
+                        console.log(err)
+                    })
+            },
+            changeType(type) {
+                var self = this
+                self.sort = '';
+                this.$axios.post('/client/sort/search',{sortType:type})
+                    .then(function(res) {
+                        self.dataSort = res.data.list
+                        console.log(res.data.list);
+                    })
+                    .catch(function(err) {
+                        console.log(err)
+                    })
+                this.$axios.post('/client/specificscore/search',{sortType:type})
+                    .then(function(res) {
+                        console.log(res.data.list);
+                        self.tableDataSystem = res.data.list
+                    })
+                    .catch(function(err) {
+                        console.log(err)
+                    })
+            },
+            changeSort(sort) {
+                var self = this
+                self.specificSort = '';
+                this.$axios.post('/client/specificscore/search',{sortType:self.type,specificSort:sort})
+                    .then(function(res) {
+                        console.log(res.data.list);
+                        self.dataSpecificScore = res.data.list
+                        self.tableDataSystem = res.data.list
+                    })
+                    .catch(function(err) {
+                        console.log(err)
+                    })
+            },
+            changeSpecificScore(specificSort) {
+                var self = this
+                this.$axios.post('/client/specificscore/search',{sortType:self.type,specificSort:self.sort,specificId:specificSort})
+                    .then(function(res) {
+                        console.log(res.data.list);
+                        self.tableDataSystem = res.data.list
+                    })
+                    .catch(function(err) {
+                        console.log(err)
+                    })
+            }
+        },
+        mounted: function() {
+            this.init()
         }
     }
 </script>
