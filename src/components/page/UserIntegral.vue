@@ -8,7 +8,7 @@
         </el-row>
         <el-divider></el-divider>
         <h3>个人积分明细列表</h3>
-        <el-table :data="tableDataUserIntegral" >
+        <el-table :data="tableDataUserIntegral" height="594">
             <el-table-column type="index" label="序号" width="auto">
             </el-table-column>
             <el-table-column prop="userName" label="学生姓名">

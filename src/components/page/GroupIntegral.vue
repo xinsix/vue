@@ -8,7 +8,7 @@
         </el-row>
         <el-divider></el-divider>
         <h3>小组积分明细列表</h3>
-        <el-table :data="tableDataGroupIntegral">
+        <el-table :data="tableDataGroupIntegral" height="594">
             <el-table-column type="index" label="序号">
             </el-table-column>
             <el-table-column prop="groupName" label="小组名称">
