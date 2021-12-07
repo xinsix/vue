@@ -7,14 +7,21 @@
         </el-row>
         <el-divider></el-divider>
         <h3>小组列表</h3>
-        <el-table :data="tableData">
-            <el-table-column prop="date" label="序号">
+        <el-table :data="tableDataGroup" height="594">
+            <el-table-column type="index" label="序号" width="auto">
             </el-table-column>
-            <el-table-column prop="name" label="小组昵称">
+            <el-table-column prop="groupName" label="小组昵称" #default="scope">
+                {{scope.row.groupName}}小组
             </el-table-column>
-            <el-table-column prop="address" label="小组口号">
+            <el-table-column prop="groupSlogan" label="小组口号" #default="scope">
+                <span v-if="scope.row.groupSlogan != '' && scope.row.groupSlogan != null">
+                     {{scope.row.groupSlogan}}
+                </span>
+                <span v-else>
+                     这个小组很懒，暂时还没有想到口号！！！
+                </span>
             </el-table-column>
-            <el-table-column prop="address" label="操作">
+            <el-table-column label="操作">
             </el-table-column>
         </el-table>
     </div>
@@ -22,6 +29,30 @@
 
 <script>
     export default {
+        data() {
+            return {
+                tableDataGroup: [],
+            };
+        },
+        methods: {
+            handleClick(tab, event) {
+                console.log(tab, event);
+            },
+            init() {
+                var self = this
+                this.$axios.get('/client/studentgroup/search')
+                    .then(function(res) {
+                        console.log(res.data.list);
+                        self.tableDataGroup = res.data.list
+                    })
+                    .catch(function(err) {
+                        console.log(err)
+                    })
+            },
+        },
+        mounted: function() {
+            this.init()
+        }
     }
 </script>
 
